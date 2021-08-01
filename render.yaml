@@ -1,12 +1,47 @@
 services:
   - type: web
-    name: couchdb
+    name: couchdb1
     env: docker
     envVars:
       - key: COUCHDB_PASSWORD
         generateValue: true 
+      - key: COUCHDB_SECRET
+        generateValue: true 
+      - key: NODENAME
+        generateValue: true 
       - key: COUCHDB_USER
         value: admin
+      - key: ERL_FLAGS
+        value: setcookie "cgullikescookies"
+
+    disk:
+      name: data
+      mountPath: /data/db
+      sizeGB: 10
+  - type: web
+    name: couchdb2
+    env: docker
+    envVars:
+      - key: NODENAME
+        fromService:
+          type: web
+          name: couchdb1
+          envVarKey: NODENAME
+      - key: COUCHDB_PASSWORD
+        fromService:
+          type: web
+          name: couchdb1
+          envVarKey: COUCHDB_PASSWORD
+      - key: COUCHDB_SECRET
+        fromService:
+          type: web
+          name: couchdb1
+          envVarKey: COUCHDB_SECRET
+      - key: COUCHDB_USER
+        value: admin
+      - key: ERL_FLAGS
+        value: setcookie "cgullikescookies"
+
 
     disk:
       name: data
