@@ -1,7 +1,13 @@
 services:
-  - type: pserv
+  - type: web
     name: couchdb
     env: docker
+    envVars:
+      - key: COUCHDB_PASSWORD
+        generateValue: true 
+      - key: COUCHDB_USER
+        value: admin
+
     disk:
       name: data
       mountPath: /data/db
