@@ -11,13 +11,12 @@ services:
         generateValue: true 
       - key: COUCHDB_USER
         value: admin
-      - key: ERL_FLAGS
-        value: setcookie "cgullikescookies"
 
     disk:
       name: data
       mountPath: /data/db
       sizeGB: 10
+      
   - type: web
     name: couchdb2
     env: docker
@@ -39,8 +38,6 @@ services:
           envVarKey: COUCHDB_SECRET
       - key: COUCHDB_USER
         value: admin
-      - key: ERL_FLAGS
-        value: setcookie "cgullikescookies"
 
 
     disk:
